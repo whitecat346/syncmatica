@@ -1,5 +1,11 @@
 package ch.endte.syncmatica.litematica.gui;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+
+import org.apache.logging.log4j.LogManager;
+
 import ch.endte.syncmatica.Context;
 import ch.endte.syncmatica.LocalLitematicState;
 import ch.endte.syncmatica.ServerPlacement;
@@ -14,13 +20,8 @@ import fi.dy.masa.malilib.gui.widgets.WidgetListEntryBase;
 import fi.dy.masa.malilib.render.RenderUtils;
 import fi.dy.masa.malilib.util.StringUtils;
 import io.netty.buffer.Unpooled;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.network.PacketByteBuf;
-import org.apache.logging.log4j.LogManager;
-
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 
 
 public class WidgetSyncmaticaServerPlacementEntry extends WidgetListEntryBase<ServerPlacement> {
@@ -76,7 +77,7 @@ public class WidgetSyncmaticaServerPlacementEntry extends WidgetListEntryBase<Se
     }
 
     @Override
-    public void render(final int mouseX, final int mouseY, final boolean selected, final MatrixStack matrixStack) {
+    public void render(int mouseX, int mouseY, boolean selected, DrawContext drawContext) {
         // Source: WidgetSchematicEntry
         RenderUtils.color(1f, 1f, 1f, 1f);
 
@@ -92,8 +93,8 @@ public class WidgetSyncmaticaServerPlacementEntry extends WidgetListEntryBase<Se
         }
 
         final String schematicName = placement.getName();
-        drawString(x + 20, y + 7, 0xFFFFFFFF, schematicName, matrixStack);
-        drawSubWidgets(mouseX, mouseY, matrixStack);
+        drawString(x + 20, y + 7, 0xFFFFFFFF, schematicName, drawContext);
+        drawSubWidgets(mouseX, mouseY, drawContext);
     }
 
     private static class ButtonListener implements IButtonActionListener {
